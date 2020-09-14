@@ -51,7 +51,7 @@ const IndexPage = ({ data }: any) => {
 
 export default IndexPage;
 
-export const getStaticProps: GetStaticProps = async ctx => {
+export const getStaticProps: GetStaticProps = async (_) => {
 	const movies = await fetchMovies();
 
 	return {
