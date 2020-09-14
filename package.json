@@ -1,5 +1,5 @@
 {
-  "name": "Movie App",
+  "name": "movies",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
