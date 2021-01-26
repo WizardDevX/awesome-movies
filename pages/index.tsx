@@ -11,14 +11,6 @@ import {
 import axios from "axios";
 import { GetStaticProps } from "next";
 
-const fetchMovies = async (movie: string = "Naruto") => {
-	axios.defaults.baseURL = "http://www.omdbapi.com";
-	const { data } = await axios.get(
-		`/?s=${movie}&apikey=${process.env.NEXT_PUBLIC_API_KEY}`
-	);
-
-	return data.Search;
-};
 
 const IndexPage = ({ data }: any) => {
 	const [movies, setMovies] = useState<any[]>(data);
@@ -26,8 +18,11 @@ const IndexPage = ({ data }: any) => {
 
 	const findMovie = async () => {
 		if (search === "") return;
-		setMovies(await fetchMovies(search));
+
+		const res = await axios.get(`/api/movies?movie=${search}`);
+		setMovies(res.data);
 		setSearch("");
+	
 	};
 
 	return (
@@ -52,11 +47,12 @@ const IndexPage = ({ data }: any) => {
 export default IndexPage;
 
 export const getStaticProps: GetStaticProps = async (_) => {
-	const movies = await fetchMovies();
+	console.log(process.env.API_KEY)
+	const { data } = await axios.get(`http://www.omdbapi.com/?s=naruto&apikey=${process.env.API_KEY}`);
 
 	return {
 		props: {
-			data: movies,
+			data: data.Search,
 		},
 	};
 };

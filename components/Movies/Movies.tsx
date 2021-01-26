@@ -13,7 +13,7 @@ type Movies = {
 };
 
 const Movies = ({ movies }: Movies) => {
-	if (movies === undefined) return <h1>No movies</h1>;
+	if (movies == undefined) return <h1>No movies</h1>;
 
 	return (
 		<MovieContainer>
